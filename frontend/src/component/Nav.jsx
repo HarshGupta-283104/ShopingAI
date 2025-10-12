@@ -24,7 +24,7 @@ function Nav() {
         try {
             const result = await axios.get(serverUrl + "/api/auth/logout" , {withCredentials:true})
             console.log(result.data)
-            getCurrentUser()
+           
             navigate("/login")
         } catch (error) {
             console.log(error)
@@ -50,7 +50,7 @@ function Nav() {
          {!showSearch && <IoSearchCircleOutline  className='w-[38px] h-[38px] text-[#000000]  cursor-pointer' onClick={()=>{setShowSearch(prev=>!prev);navigate("/collection")}}/>}
            {showSearch && <IoSearchCircleSharp  className='w-[38px] h-[38px] text-[#000000]  cursor-pointer' onClick={()=>setShowSearch(prev=>!prev)}/>}
          {!userData && <FaCircleUser className='w-[29px] h-[29px] text-[#000000]  cursor-pointer' onClick={()=>setShowProfile(prev=>!prev)}/>}
-         {userData && <div className='w-[30px] h-[30px] bg-[#080808] text-[white] rounded-full flex items-center justify-center cursor-pointer' onClick={()=>setShowProfile(prev=>!prev)}>{userData?.name.slice(0,1)}</div>}
+         {userData && <div className='w-[30px] h-[30px] bg-[#080808] text-[white] rounded-full flex items-center justify-center cursor-pointer' onClick={()=>setShowProfile(prev=>!prev)}>{userData?.name?.slice(0,1)}</div>}
          <MdOutlineShoppingCart className='w-[30px] h-[30px] text-[#000000]  cursor-pointer hidden md:block' onClick={()=>navigate("/cart")}/>
          <p className='absolute w-[18px] h-[18px] items-center  justify-center bg-black px-[5px] py-[2px] text-white  rounded-full text-[9px] top-[10px] right-[23px] hidden md:block'>{getCartCount()}</p>
         </div>
