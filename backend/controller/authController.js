@@ -21,7 +21,7 @@ export const registration = async (req,res) => {
 
     const user = await User.create({name,email,password:hashPassword})
     let token = await genToken(user._id)
-    console.log(process.env.NODE_ENV);
+    
     
     res.cookie("token",token,{
         httpOnly:true,
@@ -88,13 +88,15 @@ export const googleLogin = async (req,res) => {
         }
        
         let token = await genToken(user._id)
+        console.log(process.env.NODE_ENV);
+
         res.cookie("token",token,{
         httpOnly:true,
         secure: process.env.NODE_ENV === 'production',
         sameSite: "lax",
         maxAge: 7 * 24 * 60 * 60 * 1000
     })
-    return res.status(200).json(user)
+    return res.status(200).json({...user,env:process.env.NODE_ENV})
 
     } catch (error) {
          console.log("googleLogin error")
