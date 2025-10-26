@@ -50,7 +50,7 @@ function Registration() {
             let user = response.user
             let name = user.displayName;
             let email = user.email
-
+            console.log("Registration request send ")
             const result = await axios.post(serverUrl + "/api/auth/googlelogin" ,{name , email} , {withCredentials:true})
             console.log(result.data)
             getCurrentUser()
