@@ -1,4 +1,4 @@
-import React, { useCallback, useContext } from 'react'
+import React, { useContext } from 'react'
 import { Navigate, Route, Routes, useLocation } from 'react-router-dom'
 import Registration from './pages/Registration'
 import Home from './pages/Home'

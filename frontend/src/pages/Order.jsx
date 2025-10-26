@@ -32,7 +32,7 @@ function Order() {
 
 useEffect(()=>{
  loadOrderData()
-},[])
+},[loadOrderData])
 
 
   return (

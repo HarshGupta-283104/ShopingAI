@@ -3,7 +3,7 @@ import Title from '../component/Title'
 import CartTotal from '../component/CartTotal'
 import razorpay from '../assets/Razorpay.jpg'
 import { shopDataContext } from '../context/ShopContext'
-import { authDataContext } from '../context/authContext'
+import { authDataContext } from '../context/AuthContext'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
@@ -81,9 +81,8 @@ function PlaceOrder() {
         amount:getCartAmount() + delivery_fee
       }
       switch(method){
-        case 'cod': 
-      
-        const result = await axios.post(serverUrl + "/api/order/placeorder" , orderData , {withCredentials:true})
+        case 'cod': {
+          const result = await axios.post(serverUrl + "/api/order/placeorder" , orderData , {withCredentials:true})
         console.log(result.data)
         if(result.data){
             setCartItem({})
@@ -98,27 +97,23 @@ function PlaceOrder() {
         }
 
         break;
-
-        case 'razorpay':
-        const resultRazorpay = await axios.post(serverUrl + "/api/order/razorpay" , orderData , {withCredentials:true})
-        if(resultRazorpay.data){
-          initPay(resultRazorpay.data)
-           toast.success("Order Placed")
-           setLoading(false)
         }
 
-        break;
-
-
-
-
+        case 'razorpay': {
+            const resultRazorpay = await axios.post(serverUrl + "/api/order/razorpay" , orderData , {withCredentials:true})
+          if(resultRazorpay.data){
+              initPay(resultRazorpay.data)
+              toast.success("Order Placed")
+              setLoading(false)
+            }
+            break;
+        }
         default:
-        break;
+          break;
 
-      }
     
       
-    } catch (error) {
+    }} catch (error) {
       console.log(error)
     
     }

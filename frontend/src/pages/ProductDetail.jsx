@@ -39,7 +39,7 @@ function ProductDetail() {
 
   useEffect(() => {
     fetchProductData()
-  }, [productId, products])
+  }, [productId, products, fetchProductData])
   return productData ? (
     <div >
         <div className=' w-[99vw] h-[130vh] md:h-[100vh] bg-gradient-to-l from-[#141414] to-[#0c2025] flex items-center justify-start flex-col lg:flex-row gap-[20px]'>

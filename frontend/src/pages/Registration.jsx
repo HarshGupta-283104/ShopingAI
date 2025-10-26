@@ -6,7 +6,7 @@ import { IoEyeOutline } from "react-icons/io5";
 import { IoEye } from "react-icons/io5";
 import { useState } from 'react';
 import { useContext } from 'react';
-import { authDataContext } from '../context/authContext';
+import { authDataContext } from '../context/AuthContext';
 import axios from 'axios'
 import { signInWithPopup } from 'firebase/auth';
 import { auth, provider } from '../../utils/Firebase';
@@ -20,7 +20,7 @@ function Registration() {
     let [name,setName] = useState("")
     let [email,setEmail] = useState("")
     let [password,setPassword] = useState("")
-    let {userdata , getCurrentUser} = useContext(userDataContext)
+    let {getCurrentUser} = useContext(userDataContext)
     let [loading,setLoading] = useState(false)
 
     let navigate = useNavigate()

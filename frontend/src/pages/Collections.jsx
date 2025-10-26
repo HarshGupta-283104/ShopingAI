@@ -51,7 +51,7 @@ function Collections() {
     }
 
 
-    const sortProducts = (e)=>{
+    const sortProducts = ()=>{
         let fbCopy = filterProduct.slice()
 
         switch(sortType){
@@ -71,7 +71,7 @@ function Collections() {
 
     useEffect(()=>{
         sortProducts()
-    },[sortType])
+    },[sortType, sortProducts])
 
 
     useEffect(()=>{
@@ -80,7 +80,7 @@ function Collections() {
 
     useEffect(()=>{
         applyFilter()
-    },[category,subCategory,search ,showSearch])
+    },[category,subCategory,search ,showSearch, applyFilter])
 
 
 

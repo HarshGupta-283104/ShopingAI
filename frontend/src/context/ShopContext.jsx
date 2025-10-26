@@ -110,7 +110,7 @@ function ShopContext({children}) {
             totalCount += cartItem[items][item]
           }
         } catch (error) {
-
+          console.log(error)
         }
       }
     }
@@ -127,7 +127,7 @@ function ShopContext({children}) {
             totalAmount += itemInfo.price * cartItem[items][item];
           }
         } catch (error) {
-
+          console.log(error)
         }
       }
     }
@@ -137,11 +137,11 @@ function ShopContext({children}) {
 
     useEffect(()=>{
      getProducts()
-    },[])
+    },[getProducts])
 
     useEffect(() => {
     getUserCart()
-  },[])
+  },[getUserCart])
 
 
 
