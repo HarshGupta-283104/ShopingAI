@@ -17,7 +17,7 @@ connectDb();
 app.use(express.json())
 app.use(cookieParser())
 app.use(cors({
- origin:["https://shoping-ai.vercel.app" , "http://localhost:5173"],
+ origin:["https://shoping-ai.vercel.app" , "http://localhost:5173","https://shoping-ai-admin.vercel.app"],
  credentials:true
 }))
 

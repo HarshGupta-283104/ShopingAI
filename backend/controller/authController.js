@@ -97,7 +97,7 @@ export const googleLogin = async (req,res) => {
         sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
         maxAge: 7 * 24 * 60 * 60 * 1000
     })
-    return res.status(200).json({...user,env:process.env.NODE_ENV==='production'})
+    return res.status(200).json(user)
 
     } catch (error) {
          console.log("googleLogin error")
