@@ -21,6 +21,8 @@ export const registration = async (req,res) => {
 
     const user = await User.create({name,email,password:hashPassword})
     let token = await genToken(user._id)
+    console.log(process.env.NODE_ENV);
+    
     res.cookie("token",token,{
         httpOnly:true,
         secure: process.env.NODE_ENV === 'production',
