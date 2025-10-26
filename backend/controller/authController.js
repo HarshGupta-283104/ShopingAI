@@ -2,6 +2,7 @@ import User from "../model/userModel.js";
 import validator from "validator"
 import bcrypt from "bcryptjs"
 import { genToken, genToken1 } from "../config/token.js";
+import mongoose from "mongoose";
 
 
 export const registration = async (req,res) => {
@@ -100,7 +101,7 @@ export const googleLogin = async (req,res) => {
 
     } catch (error) {
          console.log("googleLogin error")
-    return res.status(500).json({message:`googleLogin error ${error}`})
+    return res.status(500).json({message:`googleLogin error ${error},${mongoose.connection.host}`})
     }
     
 }
