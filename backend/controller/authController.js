@@ -101,7 +101,7 @@ export const googleLogin = async (req,res) => {
 
     } catch (error) {
          console.log("googleLogin error")
-    return res.status(500).json({message:`googleLogin error ${error},${mongoose.connection.host}`})
+    return res.status(500).json({message:`googleLogin error ${error}`})
     }
     
 }
