@@ -13,7 +13,7 @@ import orderRoutes from './routes/orderRoutes.js'
 let port = process.env.PORT || 6000
 
 let app = express()
-
+connectDb()
 app.use(express.json())
 app.use(cookieParser())
 app.use(cors({
@@ -32,7 +32,6 @@ app.use("/api/order",orderRoutes)
 
 app.listen(port,()=>{
     console.log("Hello From Server")
-    connectDb()
 })
 
 
