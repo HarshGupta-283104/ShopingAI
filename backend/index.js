@@ -30,9 +30,9 @@ app.use("/api/order",orderRoutes)
 
 
 
-app.listen(port,()=>{
+app.listen(port,async ()=>{
     console.log("Hello From Server");
-    connectDb();
+   await connectDb();
 })
 
 
