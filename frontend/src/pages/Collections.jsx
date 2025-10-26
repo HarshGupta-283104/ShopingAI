@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState, useCallback } from 'react'
 import { FaChevronRight } from "react-icons/fa";
 import { FaChevronDown } from "react-icons/fa";
 import Title from '../component/Title';
@@ -32,7 +32,7 @@ function Collections() {
          }
     }
 
-    const applyFilter = ()=>{
+    const applyFilter = useCallback(()=>{
         let productCopy = products.slice()
 
         if(showSearch && search){
@@ -48,10 +48,10 @@ function Collections() {
         }
         setFilterProduct(productCopy)
 
-    }
+    }, [products, showSearch, search, category, subCategory])
 
 
-    const sortProducts = ()=>{
+    const sortProducts = useCallback(()=>{
         let fbCopy = filterProduct.slice()
 
         switch(sortType){
@@ -63,15 +63,16 @@ function Collections() {
             setFilterProduct(fbCopy.sort((a,b)=>(b.price - a.price)))
         break;
         default:
-            applyFilter()
+            // For 'relavent' case, just apply the current filter without calling applyFilter
+            // This prevents infinite loop
         break;
         }
 
-    }
+    }, [filterProduct, sortType])
 
     useEffect(()=>{
         sortProducts()
-    },[sortType, sortProducts])
+    },[sortType])
 
 
     useEffect(()=>{
@@ -80,7 +81,7 @@ function Collections() {
 
     useEffect(()=>{
         applyFilter()
-    },[category,subCategory,search ,showSearch, applyFilter])
+    },[category,subCategory,search ,showSearch])
 
 
 
