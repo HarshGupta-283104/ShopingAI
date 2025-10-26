@@ -13,7 +13,7 @@ import orderRoutes from './routes/orderRoutes.js'
 let port = process.env.PORT || 6000
 
 let app = express()
-connectDb()
+connectDb();
 app.use(express.json())
 app.use(cookieParser())
 app.use(cors({
