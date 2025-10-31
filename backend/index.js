@@ -4,18 +4,23 @@ import connectDb from './config/db.js'
 import cookieParser from 'cookie-parser'
 import authRoutes from './routes/authRoutes.js'
 dotenv.config()
+connectDb();
 import cors from "cors"
 import userRoutes from './routes/userRoutes.js'
 import productRoutes from './routes/productRoutes.js'
 import cartRoutes from './routes/cartRoutes.js'
 import orderRoutes from './routes/orderRoutes.js'
+import mongoose from 'mongoose'
 
 let port = process.env.PORT || 6000
 
 let app = express()
-connectDb();
 app.use(express.json())
 app.use(cookieParser())
+app.use(async (req,res,next)=>{
+    if(!mongoose.connection?.host) await connectDb();
+    next();
+})
 app.use(cors({
  origin:["https://shoping-ai.vercel.app" , "http://localhost:5173","https://shoping-aiadmin1.vercel.app"],
  credentials:true

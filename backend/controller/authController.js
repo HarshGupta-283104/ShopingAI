@@ -3,6 +3,7 @@ import validator from "validator"
 import bcrypt from "bcryptjs"
 import { genToken, genToken1 } from "../config/token.js";
 import mongoose from "mongoose";
+import connectDb from "../config/db.js";
 
 
 export const registration = async (req,res) => {
@@ -81,6 +82,7 @@ try {
 export const googleLogin = async (req,res) => {
     try {
         let {name , email} = req.body;
+
          let user = await User.findOne({email}) 
         if(!user){
           user = await User.create({
