@@ -12,7 +12,7 @@ import cartRoutes from './routes/cartRoutes.js'
 import orderRoutes from './routes/orderRoutes.js'
 import mongoose from 'mongoose'
 
-let port = process.env.PORT || 6000
+let port = process.env.PORT || 8000
 
 let app = express()
 app.use(express.json())

@@ -5,11 +5,13 @@ import razorpay from '../assets/Razorpay.jpg'
 import { shopDataContext } from '../context/ShopContext'
 import { authDataContext } from '../context/AuthContext'
 import axios from 'axios'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import Loading from '../component/Loading'
-
+import { useEffect } from 'react'
 function PlaceOrder() {
+  const queryParams = useParams();
+
     let [method,setMethod] = useState('cod')
     let navigate = useNavigate()
     const {cartItem , setCartItem , getCartAmount , delivery_fee , products } = useContext(shopDataContext)
@@ -33,28 +35,29 @@ function PlaceOrder() {
     const value = e.target.value;
     setFormData(data => ({...data,[name]:value}))
     }
-
-    const initPay = (order) =>{
-        const options = {
-      key:import.meta.env.VITE_RAZORPAY_KEY_ID,
-      amount: order.amount,
-      currency: order.currency,
-      name:'Order Payment',
-      description: 'Order Payment',
-      order_id: order.id,
-      receipt: order.receipt,
-      handler: async (response) => {
-        console.log(response)
-    const {data} = await axios.post(serverUrl + '/api/order/verifyrazorpay',response,{withCredentials:true})
-    if(data){
-        navigate("/order")
-        setCartItem({})
-
-    }
-      }}
-    const rzp = new window.Razorpay(options)
-    rzp.open()
-   }
+    useEffect(() => {
+      if (queryParams?.payment === 'failed') {
+        toast.error("Payment Failed. Please try again.");
+      }
+      else {
+        queryParams?.payment === 'success' && toast.success("Payment Successful. Your order has been placed.");
+      }
+    },[queryParams])
+    const initPay =async (order) =>{
+    
+      const res = await axios.post(`${serverUrl}/api/order/stripe-session`,order,{
+        headers:["content-type/json"],
+        withCredentials:true
+      });
+      if(res.data){
+      window.location.href = res.data.session.url
+      }
+        if(res.error){
+          toast.error(res.error.message)
+        }
+      }
+      
+  
 
     
      const onSubmitHandler = async (e) => {
@@ -100,12 +103,9 @@ function PlaceOrder() {
         }
 
         case 'razorpay': {
-            const resultRazorpay = await axios.post(serverUrl + "/api/order/razorpay" , orderData , {withCredentials:true})
-          if(resultRazorpay.data){
-              initPay(resultRazorpay.data)
-              toast.success("Order Placed")
+          
+             await initPay(orderData)
               setLoading(false)
-            }
             break;
         }
         default:
