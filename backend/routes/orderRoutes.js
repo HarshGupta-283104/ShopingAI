@@ -9,7 +9,7 @@ const orderRoutes = express.Router()
 orderRoutes.post("/placeorder",isAuth,placeOrder)
 orderRoutes.post("/stripe-session",isAuth,stripeSession)
 orderRoutes.post("/userorder",isAuth,userOrders)
-orderRoutes.get("/verify",isAuth,verifyPayment)
+orderRoutes.get("/verify",verifyPayment)
 
  
 //for Admin
